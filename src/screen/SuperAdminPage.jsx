@@ -23,7 +23,9 @@ import {StudentMgmt} from "../component/super-admin/StudentMgmt.jsx";
 import {getAllAdmin, getAllStudent} from "../api/SuperAdminApi.js";
 import {AdminMgmt} from "../component/super-admin/AdminMgmt.jsx";
 import {TimeMgmt} from "../component/super-admin/TimeMgmt.jsx";
-import {getCurrentSemester} from "../api/PublicApi.js";
+import {getAllClass, getAllCourse, getCurrentSemester} from "../api/PublicApi.js";
+import {CourseMgmt} from "../component/super-admin/CourseMgmt.jsx";
+import {ClassMgmt} from "../component/super-admin/ClassMgmt.jsx";
 
 export const SuperAdminPage = () => {
     const drawerWidth = 240
@@ -34,7 +36,10 @@ export const SuperAdminPage = () => {
     const [allAdmin, setAllAdmin] = useState([])
 
     const [currentSemester, setCurrentSemester] = useState(undefined)
+    const [currentSemesterForMetadataManagement,setCurrentSemesterForMetadataManagement] = useState(undefined)
 
+    const [allCourses,setAllCourses] = useState(undefined)
+    const [allClasses,setAllClasses] = useState(undefined)
 
     const fetchDataInfo = async () => {
         const data = await getMyInfo()
@@ -58,6 +63,17 @@ export const SuperAdminPage = () => {
         console.log(data)
         setCurrentSemester(data)
     }
+    const fetchDataAllCourse = async () => {
+        const data = await getAllCourse()
+        console.log(data)
+        setAllCourses(data)
+    }
+
+    const fetchDataAllClasses = async (currentSemester)=>{
+        const data = await getAllClass('20231')
+        setAllClasses(data)
+    }
+
 
 
     useEffect(() => {
@@ -65,7 +81,12 @@ export const SuperAdminPage = () => {
         fetchCurrentSemester()
         fetchAllStudent()
         fetchDataAdmin()
+        fetchDataAllCourse()
     }, []);
+
+    useEffect(() => {
+        fetchDataAllClasses(currentSemester)
+    }, [currentSemester]);
     return (
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
@@ -122,7 +143,7 @@ export const SuperAdminPage = () => {
                     </ListItem>
 
                     <ListItem key={3} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton onClick={()=>setCurrentState('CourseMgmt')}>
                             <ListItemIcon>
                                 <BookIcon/>
                             </ListItemIcon>
@@ -131,7 +152,7 @@ export const SuperAdminPage = () => {
                     </ListItem>
 
                     <ListItem key={4} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton onClick={()=>setCurrentState('ClassMgmt')}>
                             <ListItemIcon>
                                 <BookIcon/>
                             </ListItemIcon>
@@ -165,6 +186,12 @@ export const SuperAdminPage = () => {
                 }
                 {currentState==='AdminMgmt' &&
                     <AdminMgmt allAdmin={allAdmin}/>
+                }
+                {currentState==='CourseMgmt' &&
+                    <CourseMgmt allCourse={allCourses}/>
+                }
+                {currentState==='ClassMgmt' &&
+                    <ClassMgmt allClasses={allClasses}/>
                 }
             </Box>
         </Box>

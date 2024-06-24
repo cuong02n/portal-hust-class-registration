@@ -3,7 +3,7 @@ import {toast} from "react-toastify";
 
 export const getAllClass = async (semester) => {
     try {
-        const {data} = await client.get('/classes/get-all', {
+        const {data} = await client.get('/classes/get-by-semester', {
             params: {
                 semester: semester
             }
@@ -11,6 +11,18 @@ export const getAllClass = async (semester) => {
         return data.data
     } catch (err) {
         toast.error('Lấy danh sách lớp thất bại' + err.response.data.message)
+        throw err
+    }
+}
+
+export const getAllCourse = async () => {
+    try {
+        const {data} = await client.get('/courses/get-all', {
+
+        })
+        return data.data
+    } catch (err) {
+        toast.error('Lấy danh sách học phần thất bại' + err.response.data.message)
         throw err
     }
 }
