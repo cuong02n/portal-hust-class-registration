@@ -27,6 +27,16 @@ export const getAllCourse = async () => {
     }
 }
 
+export const getAllCourseRelationShip = async ()=>{
+    try{
+        const {data} = await client.get('/courses/get-all-relationship')
+        return data.data
+    }catch (err){
+        toast.error('Lấy danh sách học phần điều kiện thất bại' + err.response.data.message)
+        throw err
+    }
+}
+
 export const getCurrentSemester = async () => {
     try{
         const {data} = await client.get('/metadata/current-semester')

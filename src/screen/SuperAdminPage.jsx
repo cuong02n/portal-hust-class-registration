@@ -13,6 +13,7 @@ import {
     ListItemText,
     Typography
 } from "@mui/material";
+import DeviceHubIcon from '@mui/icons-material/DeviceHub';
 import Toolbar from '@mui/material/Toolbar';
 import UpdateIcon from '@mui/icons-material/Update';
 import GroupIcon from '@mui/icons-material/Group';
@@ -23,10 +24,11 @@ import {StudentMgmt} from "../component/super-admin/StudentMgmt.jsx";
 import {getAllAdmin, getAllStudent} from "../api/SuperAdminApi.js";
 import {AdminMgmt} from "../component/super-admin/AdminMgmt.jsx";
 import {TimeMgmt} from "../component/super-admin/TimeMgmt.jsx";
-import {getAllClass, getAllCourse, getCurrentSemester} from "../api/PublicApi.js";
+import {getAllClass, getAllCourse, getAllCourseRelationShip, getCurrentSemester} from "../api/PublicApi.js";
 import {CourseMgmt} from "../component/super-admin/CourseMgmt.jsx";
 import {ClassMgmt} from "../component/super-admin/ClassMgmt.jsx";
-
+import {CourseRelationShipMgmt} from "../component/super-admin/CourseRelationShipMgmt.jsx";
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 export const SuperAdminPage = () => {
     const drawerWidth = 240
 
@@ -37,7 +39,7 @@ export const SuperAdminPage = () => {
 
     const [currentSemester, setCurrentSemester] = useState(undefined)
     const [currentSemesterForMetadataManagement,setCurrentSemesterForMetadataManagement] = useState(undefined)
-
+    const [allCourseRelationship,setAllCourseRelationship] = useState(undefined)
     const [allCourses,setAllCourses] = useState(undefined)
     const [allClasses,setAllClasses] = useState(undefined)
 
@@ -74,6 +76,11 @@ export const SuperAdminPage = () => {
         setAllClasses(data)
     }
 
+    const fetchDataAllCourseRelationShip = async ()=>{
+        const data = await getAllCourseRelationShip()
+        console.log(data)
+        setAllCourseRelationship(data)
+    }
 
 
     useEffect(() => {
@@ -82,6 +89,7 @@ export const SuperAdminPage = () => {
         fetchAllStudent()
         fetchDataAdmin()
         fetchDataAllCourse()
+        fetchDataAllCourseRelationShip()
     }, []);
 
     useEffect(() => {
@@ -152,9 +160,18 @@ export const SuperAdminPage = () => {
                     </ListItem>
 
                     <ListItem key={4} disablePadding>
+                        <ListItemButton onClick={()=>setCurrentState('CourseRelationShipMgmt')}>
+                            <ListItemIcon>
+                                <DeviceHubIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary={'QL Học phần điều kiện'}/>
+                        </ListItemButton>
+                    </ListItem>
+
+                    <ListItem key={5} disablePadding>
                         <ListItemButton onClick={()=>setCurrentState('ClassMgmt')}>
                             <ListItemIcon>
-                                <BookIcon/>
+                                <MenuBookIcon/>
                             </ListItemIcon>
                             <ListItemText primary={'QL Lớp học'}/>
                         </ListItemButton>
@@ -163,7 +180,7 @@ export const SuperAdminPage = () => {
                 </List>
                 <Divider/>
                 <List>
-                    <ListItem key={5} disablePadding>
+                    <ListItem key={6} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
                                 <StackedLineChartIcon/>
@@ -192,6 +209,10 @@ export const SuperAdminPage = () => {
                 }
                 {currentState==='ClassMgmt' &&
                     <ClassMgmt allClasses={allClasses}/>
+                }
+                {
+                    currentState==='CourseRelationShipMgmt'&&
+                    <CourseRelationShipMgmt allRelation={allCourseRelationship}/>
                 }
             </Box>
         </Box>

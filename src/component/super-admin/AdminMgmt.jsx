@@ -118,7 +118,7 @@ const AddAdmin = ({ open, handleClose }) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
 
-  const handleAddStudent = () => {
+  const handleAddAdmin = () => {
     console.log(email, name);
   };
 
@@ -187,7 +187,7 @@ const AddAdmin = ({ open, handleClose }) => {
             variant="contained"
             color="primary"
             sx={{ ml: 1 }}
-            onClick={handleAddStudent}
+            onClick={handleAddAdmin}
           >
             Thêm
           </Button>
@@ -208,7 +208,7 @@ const EditAdmin = ({ open, handleClose, admin }) => {
     }
   }, [admin]);
 
-  const handleUpdateStudent = () => {
+  const handleUpdateAdmin = () => {
     console.log(email, name);
   };
 
@@ -277,7 +277,7 @@ const EditAdmin = ({ open, handleClose, admin }) => {
             variant="contained"
             color="primary"
             sx={{ ml: 1 }}
-            onClick={handleUpdateStudent}
+            onClick={handleUpdateAdmin}
           >
             Cập nhật
           </Button>
