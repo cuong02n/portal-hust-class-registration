@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {getMetadataSemester} from "../../api/PublicApi.js";
-import {Box, Button, Grid, MenuItem, Select, Typography} from "@mui/material";
+import {Box, Button, Grid, MenuItem, Select, Tooltip, Typography} from "@mui/material";
 import {DatePicker, DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
@@ -8,6 +8,7 @@ import {setCurrentSemester, setDayStartYear} from "../../api/SuperAdminApi.js";
 import {toast} from "react-toastify";
 import * as Constant from "../../util/constants/Constant.js"
 import * as MetadataApi from "../../api/SuperAdminApi.js";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 export const TimeMgmt = ({currentSemester, setSemester}) => {
 
@@ -92,8 +93,14 @@ export const TimeMgmt = ({currentSemester, setSemester}) => {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <Grid container spacing={2} alignItems="center">
                     <Grid item xs={12} display={'flex'} alignItems={'center'}>
-                        <Grid item xs={4}>
+                        <Grid item xs={4} display={'flex'} >
                             <Typography>Kì học hiện tại: </Typography>
+                            <Tooltip title={
+                                <Box maxWidth={'40vw'} fontSize={16}>
+                                    Mục này để thay đổi kì học hiện tại, sinh viên đăng nhập sẽ thấy mục: kì học hiện tại là giá trị này.
+                                </Box>
+                            }
+                            ><HelpOutlineIcon/></Tooltip>
                         </Grid>
                         <Grid item xs={3}>
                             <Select
