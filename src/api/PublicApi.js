@@ -3,7 +3,7 @@ import {toast} from "react-toastify";
 
 export const getAllClass = async (semester) => {
     try {
-        const {data} = await client.get('/classes/get-by-semester', {
+        const {data} = await client.get('/api/classes/get-by-semester', {
             params: {
                 semester: semester
             }
@@ -17,7 +17,7 @@ export const getAllClass = async (semester) => {
 
 export const getAllCourse = async () => {
     try {
-        const {data} = await client.get('/courses/get-all', {
+        const {data} = await client.get('/api/courses/get-all', {
 
         })
         return data.data
@@ -29,7 +29,7 @@ export const getAllCourse = async () => {
 
 export const getAllCourseRelationShip = async ()=>{
     try{
-        const {data} = await client.get('/courses/get-all-relationship')
+        const {data} = await client.get('/api/courses/get-all-relationship')
         return data.data
     }catch (err){
         toast.error('Lấy danh sách học phần điều kiện thất bại' + err.response.data.message)
@@ -39,7 +39,7 @@ export const getAllCourseRelationShip = async ()=>{
 
 export const getCurrentSemester = async () => {
     try{
-        const {data} = await client.get('/metadata/current-semester')
+        const {data} = await client.get('/api/metadata/current-semester')
         return data.data
     }catch (err){
         toast.error("Không có dữ liệu về kì học hiện tại")
@@ -49,7 +49,7 @@ export const getCurrentSemester = async () => {
 
 export const getMetadataSemester = async (semester) => {
     try {
-        const {data} = await client.get('/metadata/get-by-semester', {
+        const {data} = await client.get('/api/metadata/get-by-semester', {
             params:{
                 semester:semester
             }

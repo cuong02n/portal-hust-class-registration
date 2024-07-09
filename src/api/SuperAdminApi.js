@@ -4,7 +4,7 @@ import {client} from "./Axios.js";
 
 export const setDayStartYear = async (year, date) => {
     try {
-        const {data} = await client.post('/super-admin/metadata', {
+        const {data} = await client.post('/api/super-admin/metadata', {
             metadataKey: Constants.START_WEEK_1, semester: year + '1', value: date
         })
         return data.data
@@ -17,7 +17,7 @@ export const setDayStartYear = async (year, date) => {
 
 export const setCurrentSemester = async (semester) => {
     try {
-        const {data} = await client.post('/super-admin/metadata', {
+        const {data} = await client.post('/api/super-admin/metadata', {
             metadataKey: Constants.CURRENT_SEMESTER, semester: null, value: semester
         })
         return data.data
@@ -30,7 +30,7 @@ export const setCurrentSemester = async (semester) => {
 export const startRegisterOfficialStandard = async (semester, date) => {
 
     try {
-        const {data} = await client.post('/super-admin/metadata', {
+        const {data} = await client.post('/api/super-admin/metadata', {
             metadataKey: Constants.START_REGISTER_CLASS_OFFICIAL_STANDARD,
             semester: semester,
             value: date
@@ -46,7 +46,7 @@ export const startRegisterOfficialStandard = async (semester, date) => {
 export const endRegisterOfficialStandard = async (semester, date) => {
 
     try {
-        const {data} = await client.post('/super-admin/metadata', {
+        const {data} = await client.post('/api/super-admin/metadata', {
             metadataKey: Constants.END_REGISTER_CLASS_OFFICIAL_STANDARD,
             semester: semester,
             value: date
@@ -62,7 +62,7 @@ export const endRegisterOfficialStandard = async (semester, date) => {
 export const startRegisterUnofficialStandard = async (semester, date) => {
 
     try {
-        const {data} = await client.post('/super-admin/metadata', {
+        const {data} = await client.post('/api/super-admin/metadata', {
             metadataKey: Constants.START_REGISTER_CLASS_UNOFFICIAL_STANDARD,
             semester: semester,
             value: date
@@ -78,7 +78,7 @@ export const startRegisterUnofficialStandard = async (semester, date) => {
 export const endRegisterUnofficialStandard = async (semester, date) => {
 
     try {
-        const {data} = await client.post('/super-admin/metadata', {
+        const {data} = await client.post('/api/super-admin/metadata', {
             metadataKey: Constants.END_REGISTER_CLASS_UNOFFICIAL_STANDARD,
             semester: semester,
             value: date
@@ -94,7 +94,7 @@ export const endRegisterUnofficialStandard = async (semester, date) => {
 export const startRegisterOfficialElitech = async (semester, date) => {
 
     try {
-        const {data} = await client.post('/super-admin/metadata', {
+        const {data} = await client.post('/api/super-admin/metadata', {
             metadataKey: Constants.START_REGISTER_CLASS_OFFICIAL_ELITECH,
             semester: semester,
             value: date
@@ -110,7 +110,7 @@ export const startRegisterOfficialElitech = async (semester, date) => {
 export const endRegisterOfficialElitech = async (semester, date) => {
 
     try {
-        const {data} = await client.post('/super-admin/metadata', {
+        const {data} = await client.post('/api/super-admin/metadata', {
             metadataKey: Constants.END_REGISTER_CLASS_OFFICIAL_ELITECH,
             semester: semester,
             value: date
@@ -126,7 +126,7 @@ export const endRegisterOfficialElitech = async (semester, date) => {
 export const startRegisterUnofficialElitech = async (semester, date) => {
 
     try {
-        const {data} = await client.post('/super-admin/metadata', {
+        const {data} = await client.post('/api/super-admin/metadata', {
             metadataKey: Constants.START_REGISTER_CLASS_UNOFFICIAL_ELITECH,
             semester: semester,
             value: date
@@ -142,7 +142,7 @@ export const startRegisterUnofficialElitech = async (semester, date) => {
 export const endRegisterUnofficialElitech = async (semester, date) => {
 
     try {
-        const {data} = await client.post('/super-admin/metadata', {
+        const {data} = await client.post('/api/super-admin/metadata', {
             metadataKey: Constants.END_REGISTER_CLASS_UNOFFICIAL_ELITECH,
             semester: semester,
             value: date
@@ -157,7 +157,7 @@ export const endRegisterUnofficialElitech = async (semester, date) => {
 
 export const startFreeRegister = async (semester, date) => {
     try {
-        const {data} = await client.post('/super-admin/metadata', {
+        const {data} = await client.post('/api/super-admin/metadata', {
             metadataKey: Constants.START_REGISTER_FREE, semester: semester, value: date
         })
         return data.data
@@ -170,7 +170,7 @@ export const startFreeRegister = async (semester, date) => {
 
 export const endFreeRegister = async (semester, date) => {
     try {
-        const {data} = await client.post('/super-admin/metadata', {
+        const {data} = await client.post('/api/super-admin/metadata', {
             metadataKey: Constants.END_REGISTER_FREE, semester: semester, value: date
         })
 
@@ -184,7 +184,7 @@ export const endFreeRegister = async (semester, date) => {
 
 export const getAllStudent = async () => {
     try {
-        const {data} = await client.get('/super-admin/user/get-all-student')
+        const {data} = await client.get('/api/super-admin/user/get-all-student')
         return data.data
     } catch (err) {
         toast.error(err.response.data.message)
@@ -194,7 +194,7 @@ export const getAllStudent = async () => {
 
 export const getAllAdmin = async () => {
     try {
-        const {data} = await client.get('/super-admin/user/get-all-admin')
+        const {data} = await client.get('/api/super-admin/user/get-all-admin')
         return data.data
     } catch (err) {
         toast.error(err.response.data.message)
