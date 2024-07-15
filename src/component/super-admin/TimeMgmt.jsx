@@ -13,7 +13,7 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 export const TimeMgmt = ({currentSemester, setSemester}) => {
 
     const [startYear, setStartYear] = useState(null)
-    const [startOfficialElitech, setStartOfficialElitech] = useState()
+    const [startOfficialElitech, setStartOfficialElitech] = useState(null)
     const [endOfficialElitech, setEndOfficialElitech] = useState(null)
     const [startOfficialStandard, setStartOfficialStandard] = useState(null)
     const [endOfficialStandard, setEndOfficialStandard] = useState(null)
@@ -25,22 +25,21 @@ export const TimeMgmt = ({currentSemester, setSemester}) => {
     const [endFree, setEndFree] = useState(null)
 
 
-    const handleSaveAllMetadata = () => {
-        if (new Date(startYear).getDay() !== 1) {
-            toast.error('Ngày bắt đầu phải là thứ 2')
-            throw 'Ngày bắt đầu phải là thứ 2'
-        }
-        MetadataApi.setDayStartYear(currentSemester.slice(0, 4), startYear)
-        MetadataApi.startRegisterOfficialElitech(currentSemester, startOfficialElitech)
-        MetadataApi.endRegisterOfficialElitech(currentSemester, endOfficialElitech)
-        MetadataApi.startRegisterOfficialStandard(currentSemester, startOfficialStandard)
-        MetadataApi.endRegisterOfficialStandard(currentSemester, endOfficialStandard)
-        MetadataApi.startRegisterUnofficialElitech(currentSemester, startUnofficialElitech)
-        MetadataApi.endRegisterUnofficialElitech(currentSemester, endUnofficialElitech)
-        MetadataApi.startRegisterUnofficialStandard(currentSemester, startUnofficialStandard)
-        MetadataApi.endRegisterUnofficialStandard(currentSemester, endUnofficialStandard)
-        MetadataApi.startFreeRegister(currentSemester, startFree)
-        MetadataApi.endFreeRegister(currentSemester, endFree)
+    const handleSaveAllMetadata = async () => {
+        console.log(startYear)
+        console.log(new Date(startYear))
+
+        if (startYear) await MetadataApi.setDayStartYear(currentSemester.slice(0, 4), startYear)
+        if (startOfficialElitech) await MetadataApi.startRegisterOfficialElitech(currentSemester, startOfficialElitech)
+        if (endOfficialElitech) await MetadataApi.endRegisterOfficialElitech(currentSemester, endOfficialElitech)
+        if (startOfficialStandard) await MetadataApi.startRegisterOfficialStandard(currentSemester, startOfficialStandard)
+        if (endOfficialStandard) await MetadataApi.endRegisterOfficialStandard(currentSemester, endOfficialStandard)
+        if (startUnofficialElitech) await MetadataApi.startRegisterUnofficialElitech(currentSemester, startUnofficialElitech)
+        if (endUnofficialElitech) await MetadataApi.endRegisterUnofficialElitech(currentSemester, endUnofficialElitech)
+        if (startUnofficialStandard) await MetadataApi.startRegisterUnofficialStandard(currentSemester, startUnofficialStandard)
+        if (endUnofficialStandard) await MetadataApi.endRegisterUnofficialStandard(currentSemester, endUnofficialStandard)
+        if (startFree) await MetadataApi.startFreeRegister(currentSemester, startFree)
+        if (endFree) await MetadataApi.endFreeRegister(currentSemester, endFree)
         toast.success("Thành công")
     }
 
@@ -64,6 +63,8 @@ export const TimeMgmt = ({currentSemester, setSemester}) => {
             obj[item.metadataPk.metadataKey] = item.value;
             return obj;
         }, {});
+        console.log("fetched")
+        console.log()
 
         setStartYear(jsonData[Constant.START_WEEK_1])
         setStartOfficialElitech(jsonData[Constant.START_REGISTER_CLASS_OFFICIAL_ELITECH])
@@ -109,6 +110,7 @@ export const TimeMgmt = ({currentSemester, setSemester}) => {
                                 variant="outlined"
                                 label='Kì học'
                                 value={tmpCurrentSemester || currentSemester || ''}
+                                defaultValue={currentSemester || ''}
                                 fullWidth
                                 labelId="demo-simple-select-error-label"
                                 id="demo-simple-select-error"
@@ -136,6 +138,7 @@ export const TimeMgmt = ({currentSemester, setSemester}) => {
                                 1): </Typography>
                         </Grid>
                         <DatePicker value={dayjs(startYear)}
+                                    defaultValue={dayjs(startYear)}
                                     onChange={e => setStartYear(e.toISOString())}/>
                     </Grid>
 
@@ -145,10 +148,12 @@ export const TimeMgmt = ({currentSemester, setSemester}) => {
                         </Grid>
                         <Grid item xs={3}>
                             <DateTimePicker value={dayjs(startOfficialElitech)}
+                                            defaultValue={dayjs(startOfficialElitech)}
                                             onChange={e => setStartOfficialElitech(e.toISOString())}/>
                         </Grid>
                         <Grid item xs={3}>
                             <DateTimePicker value={dayjs(endOfficialElitech)}
+                                            defaultValue={dayjs(endOfficialElitech)}
                                             onChange={e => setEndOfficialElitech(e.toISOString())}/>
                         </Grid>
 
@@ -159,10 +164,12 @@ export const TimeMgmt = ({currentSemester, setSemester}) => {
                         </Grid>
                         <Grid item xs={3}>
                             <DateTimePicker value={dayjs(startOfficialStandard)}
+                                            defaultValue={dayjs(startOfficialStandard)}
                                             onChange={e => setStartOfficialStandard(e.toISOString())}/>
                         </Grid>
                         <Grid item xs={3}>
                             <DateTimePicker value={dayjs(endOfficialStandard)}
+                                            defaultValue={dayjs(endOfficialStandard)}
                                             onChange={e => setEndOfficialStandard(e.toISOString())}/>
                         </Grid>
 
@@ -173,10 +180,12 @@ export const TimeMgmt = ({currentSemester, setSemester}) => {
                         </Grid>
                         <Grid item xs={3}>
                             <DateTimePicker value={dayjs(startUnofficialElitech)}
+                                            defaultValue={dayjs(startUnofficialElitech)}
                                             onChange={e => setStartUnofficialElitech(e.toISOString())}/>
                         </Grid>
                         <Grid item xs={3}>
                             <DateTimePicker value={dayjs(endUnofficialElitech)}
+                                            defaultValue={dayjs(endUnofficialElitech)}
                                             onChange={e => setEndUnofficialElitech(e.toISOString())}/>
                         </Grid>
 
@@ -187,10 +196,12 @@ export const TimeMgmt = ({currentSemester, setSemester}) => {
                         </Grid>
                         <Grid item xs={3}>
                             <DateTimePicker value={dayjs(startUnofficialStandard)}
+                                            defaultValue={dayjs(startUnofficialStandard)}
                                             onChange={e => setStartUnofficialStandard(e.toISOString())}/>
                         </Grid>
                         <Grid item xs={3}>
                             <DateTimePicker value={dayjs(endUnofficialStandard)}
+                                            defaultValue={dayjs(endUnofficialStandard)}
                                             onChange={e => setEndUnofficialStandard(e.toISOString())}/>
                         </Grid>
 
@@ -200,10 +211,12 @@ export const TimeMgmt = ({currentSemester, setSemester}) => {
                             <Typography>Đăng ký tự do<b> kì {currentSemester}</b> </Typography>
                         </Grid>
                         <Grid item xs={3}>
-                            <DateTimePicker value={dayjs(startFree)} onChange={e => setStartFree(e.toISOString())}/>
+                            <DateTimePicker value={dayjs(startFree)} defaultValue={dayjs(startFree)}
+                                            onChange={e => setStartFree(e.toISOString())}/>
                         </Grid>
                         <Grid item xs={3}>
-                            <DateTimePicker value={dayjs(endFree)} onChange={e => setEndFree(e.toISOString())}/>
+                            <DateTimePicker value={dayjs(endFree)} defaultValue={dayjs(endFree)}
+                                            onChange={e => setEndFree(e.toISOString())}/>
                         </Grid>
                     </Grid>
                     <Grid item xs={8} display={'flex'} alignItems={'center'} justifyContent={'center'}>

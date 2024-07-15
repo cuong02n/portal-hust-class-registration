@@ -13,6 +13,7 @@ const style = {
     bgcolor: "#AA1D2B",
     borderRadius: "5px",
     boxShadow: 24,
+    backgroundImage:"url('background-login.jpeg')"
 };
 
 function LoginPopup({showPopup, closePopup}) {
@@ -34,6 +35,7 @@ function LoginPopup({showPopup, closePopup}) {
 
     return (
         <Modal
+
             open={showPopup}
             onClose={closePopup}
             aria-labelledby="modal-modal-title"
@@ -45,7 +47,7 @@ function LoginPopup({showPopup, closePopup}) {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        padding: "10px 20px 10px 20px",
+                        padding: "10px 20px 10px 20px"
                     }}
                 >
                     <Typography color="white" fontSize={20}>
@@ -80,7 +82,7 @@ function LoginPopup({showPopup, closePopup}) {
                             fontWeight: "bold",
                         }}
                     >
-                        <img src={"https://qldt.hust.edu.vn/images/office-365.svg"}
+                        <img src={"office-365.svg"}
                              style={{width: '15px', marginRight: '5px'}} alt={''}></img>
                         Office 365
                     </Button>
